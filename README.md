@@ -49,16 +49,16 @@ Go to the project directory
   cd rn-calc
 ```
 
-Install dependencies using NPM
-
-```bash
-  npm install
-```
-
-or using Yarn
+Install dependencies using Yarn
 
 ```bash
   yarn install
+```
+
+or using NPM
+
+```bash
+  npm install
 ```
 
 Start the server
