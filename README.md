@@ -1,4 +1,4 @@
-# Just A Calculator
+# Not A Calculator (?)
 
 A basic calculator built using React Native
 
