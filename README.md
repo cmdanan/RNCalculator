@@ -61,6 +61,12 @@ or using NPM
   npm install
 ```
 
+Create your own .env file. If you're going to run it using a local server, make sure to use http and your local IP Address instead of localhost
+
+```bash
+  BASE_URL_APP_DEV=http://LOCAL_IP_ADDRESS:PORT/app
+```
+
 Start the server
 
 ```bash
