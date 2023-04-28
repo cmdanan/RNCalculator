@@ -12,7 +12,12 @@ A basic calculator built using React Native
 
 </p>
 
-![App Screenshot](https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExYTFiYWM2YTJkNGVmZmMzNGNjNDIyNWYwOTgyZTViYWU2YWY0NDdmMyZlcD12MV9pbnRlcm5hbF9naWZzX2dpZklkJmN0PWc/m0YzOpn6Vf0QZGqs50/giphy.gif)
+<p align="center">
+
+<a href="">![App Screenshot](https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExYTFiYWM2YTJkNGVmZmMzNGNjNDIyNWYwOTgyZTViYWU2YWY0NDdmMyZlcD12MV9pbnRlcm5hbF9naWZzX2dpZklkJmN0PWc/m0YzOpn6Vf0QZGqs50/giphy.gif)
+</a>
+
+</p>
 
 ## Tech Stack
 
