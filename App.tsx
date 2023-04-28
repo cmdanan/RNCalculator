@@ -1,15 +1,15 @@
 import React from 'react';
-import Main from '@src/features/main/Main';
 import { SafeAreaView, StyleSheet } from 'react-native';
 import {
   ThemeProvider,
-  createTheme,
   registerCustomIconType,
 } from '@rneui/themed';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { StatusBar } from 'expo-status-bar';
 import { createIconSetFromIcoMoon } from 'react-native-vector-icons';
 import { useFonts } from 'expo-font';
+import Main from '@src/features/main/Main';
+import { api } from '@src/features/main/api/api';
 
 const Icon = createIconSetFromIcoMoon(
   require('@src/assets/icons/selection.json')
@@ -26,21 +26,10 @@ export default function App() {
     return null;
   }
 
-  const customColors = {
-    calcPrimary: '#3764B4',
-    calcGrey0: '#5B5E67',
-    calcGrey1: '#4D5057',
-    calcGrey2: '#3B3D43',
-    calcGrey3: '#292A2D',
-  };
-  const theme = createTheme({
-    mode: 'light',
-    lightColors: { ...customColors },
-    darkColors: { ...customColors },
-  });
+  api.init();
 
   return (
-    <ThemeProvider theme={theme}>
+    <ThemeProvider>
       <SafeAreaProvider>
         <SafeAreaView style={styles.container}>
           <StatusBar />

@@ -4,7 +4,7 @@ import { immer } from 'zustand/middleware/immer';
 export interface CalcState {
   input: string;
   lastHistoricalData: string;
-  calculationHistory: HistoryData[];
+  calculationHistory: string[];
   isOperatorPressed: boolean;
   isDecimalPressed: boolean;
   isPercentagePressed: boolean;
@@ -12,8 +12,7 @@ export interface CalcState {
   canShowHistory: boolean;
   setInput: (value: string) => void;
   clear: () => void;
-  addToHistory: (value: { input: string; result: number }) => void;
-  updateHistory: (value: HistoryData[]) => void;
+  addToHistory: (value: string) => void;
   setIsOperatorPressed: (value: boolean) => void;
   setIsCalculationDone: (value: boolean) => void;
   setIsPercentagePressed: (value: boolean) => void;
@@ -50,11 +49,10 @@ const useCalcStore = create(
       set(() => ({ isPercentagePressed: value })),
     setIsDecimalPressed: (value: boolean) =>
       set(() => ({ isDecimalPressed: value })),
-    addToHistory: (value: { input: string; result: number }) =>
+    addToHistory: (value: string) =>
       set((state: CalcState) => ({
         calculationHistory: [...state.calculationHistory, value],
       })),
-    updateHistory: (value: HistoryData[]) => set({ calculationHistory: value }),
     clearHistory: () => set(() => ({ calculationHistory: [] })),
     setCanShowHistory: (value: boolean) =>
       set({

@@ -4,7 +4,9 @@ import { CalcButton } from '../interfaces/main.interface';
 import React, { FC } from 'react';
 import { Icon } from '@rneui/base';
 import useCalcStore from '@src/store/calculate';
-import History from '@src/features/history/History';
+import History from '@src/features/main/components/History';
+import { api } from '../api/api';
+import * as SecureStore from 'expo-secure-store';
 
 interface Props {}
 
@@ -78,10 +80,9 @@ const displayedButton = (param: {
   );
 };
 
-//TODO: Implement logic to equal button
 const store = useCalcStore;
 
-const onPressButton = (label: string) => {
+const onPressButton = async (label: string) => {
   const operators = ['+', '-', 'x', '÷', '=', '+/-'];
   const input = store.getState().input;
 
@@ -123,7 +124,6 @@ const onPressButton = (label: string) => {
       store.getState().setIsCalculationDone(false);
       break;
     case '%':
-      console.log('percent');
       currentInput += '%';
       onOperatorIsPressed(currentInput);
       store.setState({ isPercentagePressed: true });
@@ -133,11 +133,9 @@ const onPressButton = (label: string) => {
       store.getState().setIsCalculationDone(false);
       break;
     case 'history':
-      console.log('history');
       store.getState().setCanShowHistory(true);
       break;
     case '.':
-      console.log('dot');
       if (isDecimalPressed) {
         return;
       }
@@ -147,11 +145,16 @@ const onPressButton = (label: string) => {
       store.setState({ isDecimalPressed: true });
       break;
     case '=':
+      const savedUUID = await SecureStore.getItemAsync('uuid');
+      if (savedUUID === null) {
+        api.createUser();
+      }
+
       if (isCaclulationDone) {
         return;
       }
+
       const hasOperator = new RegExp(/[(\+\-\x\÷\=\+\/\-\%/)*]/gim);
-      console.log('lasvalue', lastValue);
       if (!hasOperator.test(lastValue)) {
         return;
       }
@@ -171,9 +174,11 @@ const onPressButton = (label: string) => {
       completeEquation = convertEquation(completeEquation, 'display');
 
       result = setDecimalPts(result, completeEquation);
-      store.getState().setlastHistoricalData(completeEquation);
-      store.getState().addToHistory({ input: completeEquation, result });
+      const historyEntry = `${completeEquation} = ${result}`;
       onSetInput(result.toString(), true);
+      store.getState().setlastHistoricalData(completeEquation);
+      store.getState().addToHistory(historyEntry);
+      await api.createTransaction(historyEntry);
       store.getState().setIsPercentagePressed(false);
       store.getState().setIsDecimalPressed(false);
       store.getState().setIsCalculationDone(true);
@@ -233,8 +238,6 @@ const setDecimalPts = (result: string, data: string) => {
     equation = result.toString().split('.');
     longest = equation[equation.length - 1].length;
   }
-
-  console.log('longest', longest);
 
   return Number(result).toFixed(longest);
 };
