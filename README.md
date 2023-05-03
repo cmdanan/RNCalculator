@@ -40,13 +40,13 @@ https://docs.expo.dev/get-started/installation/
 Clone the project
 
 ```bash
-  git clone https://github.com/cmdanan/rn-calc.git
+  git clone https://github.com/cmdanan/RNCalculator.git
 ```
 
 Go to the project directory
 
 ```bash
-  cd rn-calc
+  cd RNCalculator
 ```
 
 Install dependencies using Yarn
